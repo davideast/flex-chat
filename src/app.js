@@ -1,4 +1,3 @@
-
 /*
  * Flexchat
  * ----------
@@ -15,6 +14,10 @@ angular
   .directive('flexchatMessage', MessageDirective)
   .config(ApplicationConfig);
 
+function MessagesList($firebaseArray, $firebaseRef) {
+  return $firebaseArray($firebaseRef.messages.orderByKey().limitToLast(25));
+}
+
 function ApplicationConfig($firebaseRefProvider, FirebaseUrl) {
   $firebaseRefProvider.registerUrl({
     default: FirebaseUrl,
@@ -22,16 +25,12 @@ function ApplicationConfig($firebaseRefProvider, FirebaseUrl) {
   });
 }
 
-function MessagesList($firebaseArray, $firebaseRef) {
-  return $firebaseArray($firebaseRef.messages.orderByKey().limitToLast(25));
-}
-
 function flexchatAppComponent() {
   return {
-    controller: function (messagesList) {
+    controller: ['messagesList', function (messagesList) {
       this.messages = messagesList;
-    },
-    template: '<flexchat messages="$ctrl.messages"></flexchat>'
+    }],
+    templateUrl: 'app.html'
   }
 }
 
@@ -47,24 +46,7 @@ function flexchatComponent() {
         this.messageText = '';
       };
     },
-    template: `
-  <header>
-    <h3>flex-chat</h3>
-  </header>
-
-  <div class="chat-container">
-    <flexchat-message 
-      class="chat-section animated fadeInUp"
-      ng-repeat="message in $ctrl.messages" 
-      message="message">
-    </flexchat-message>
-  </div>
-
-  <div class="input-bar">
-    <input type="text" ng-model="$ctrl.messageText" ng-keyup="$ctrl.addMessage($event)" />
-    <button ng-click="$ctrl.addMessage($event)">Send</button>
-  </div>
-`
+    templateUrl: 'chat.html'
   };
 }
 
@@ -72,16 +54,12 @@ function MessageDirective() {
   return {
     restrict: 'E',
     scope: {},
-    bindToController: { message: '=message'},
+    bindToController: { message: '=message' },
     controllerAs: '$ctrl',
-    controller: () => {},
+    controller: () => { },
     link: (scope, elem, attrs) => {
       elem[0].scrollIntoView();
     },
-    template: `
-  <div class="chat-message">
-    <div>{{ $ctrl.message.text }}</div>
-  </div>
-`
+    templateUrl: 'message.html'
   }
 }
