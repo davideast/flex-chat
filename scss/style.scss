@@ -1,0 +1,104 @@
+* { box-sizing: border-box; }
+$goodness: #4CAF50;
+$goodnessLight: #58ce5c;
+$goodnessLighter: #80e583;
+$calm: #03A9F4;
+$calmLight: #51c0ef;
+$calmLighter: #76cbed;
+
+$fatigued: #b0b0b0;
+$fatiguedLight: #d0d0d0;
+$fatiguedLighter: #dadada;
+
+$localMessage: $calm;
+$localMessageLight: $calmLight;
+$localMessageLighter: $calmLighter;
+$remoteMessage: $fatigued;
+$remoteMessageLight: $fatiguedLight;
+$remoteMessageLighter: $fatiguedLighter;
+$headerBar: #b0b0b0;
+
+body {
+	background: #f0f0f0;
+	color: #444;  
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;  
+}
+
+header {
+  background: $headerBar;
+  color: #fff;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, $headerBar, rgba(176, 176, 176, 0.9));
+  position: relative;
+  background-size: cover;
+} 
+
+.chat-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 20px 80px 20px;
+}
+
+.chat-section, flexchat-message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.chat-message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #3c3c3c;
+	background: $remoteMessage;
+  height: 100%;
+  max-width: 82%;
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient( 0deg, $remoteMessageLighter, $remoteMessageLight 60%, $remoteMessage );
+  word-break: break-word;  
+}
+
+.chat-section:nth-child(odd), flexchat-message:nth-child(odd) {
+  justify-content: flex-end;
+  
+  .chat-message {
+    color: #fff;
+    justify-content: flex-end;
+    background: $localMessage;
+  background: linear-gradient( 0deg, $localMessageLighter, $localMessageLight 60%, $localMessage );    
+  }
+}
+
+.input-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  
+  input[type='text'] {
+    width: 100%;
+    height: 50px;
+    outline: none;
+    border: none;
+  }
+  
+  button {
+    border: none;
+    background: $goodnessLight;
+    width: 14%;
+    color: white;
+    outline: none;
+    padding: 0 10px;
+  }
+  
+  button:focus {
+    background: $goodness;
+  }
+}

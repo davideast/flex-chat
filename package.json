@@ -1,0 +1,23 @@
+{
+  "name": "flex-chat",
+  "version": "1.0.0",
+  "description": "A chat app with flexbox, Firebase, and Angular.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Flexbox",
+    "Firebase",
+    "Angular"
+  ],
+  "author": "David East",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^2.0.0-alpha"
+  }
+}
