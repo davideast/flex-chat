@@ -20,7 +20,7 @@ gulp.task('transpile', () => {
   return gulp.src("src/**/*.js")
     .pipe(sourcemaps.init())
     .pipe(babel())
-    .pipe(concat("all.js"))
+    .pipe(concat("index.js"))
     .pipe(sourcemaps.write("."))
     .pipe(gulp.dest("dist"));  
 });

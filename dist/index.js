@@ -78,4 +78,4 @@ function MessageDirective() {
 `
   };
 }
-//# sourceMappingURL=all.js.map
+//# sourceMappingURL=index.js.map
