@@ -35,9 +35,9 @@ gulp.task('sass:watch', () => {
 });
 
 gulp.task('transpile', ['templates'], () => {
-  return gulp.src("src/**/*.js")
-    .pipe(babel())
+  return gulp.src(['src/_build.txt', 'src/app.js'])
     .pipe(concat("app.js"))
+    .pipe(babel())
     .pipe(gulp.dest("./app/dist"));  
 });
 
