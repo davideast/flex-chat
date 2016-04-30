@@ -5,35 +5,74 @@
  */
 angular
   .module('flexchat', [
-    'firebase'
+    'firebase',
+    'ngRoute',
+    'flexchat.templates'
   ])
   .constant('FirebaseUrl', 'https://flexchat.firebaseio.com/')
   .component('flexchatApp', flexchatAppComponent())
   .component('flexchat', flexchatComponent())
   .factory('messagesList', MessagesList)
   .directive('flexchatMessage', MessageDirective)
-  .config(ApplicationConfig);
+  .directive('login', LoginDirective)
+  .config(ApplicationConfig)
+  .run(ApplicationRun);
 
 function MessagesList($firebaseArray, $firebaseRef) {
-  return $firebaseArray($firebaseRef.messages.orderByKey().limitToLast(25));
+  return $firebaseArray($firebaseRef.messages.orderByKey().limitToLast(35));
 }
 
-function ApplicationConfig($firebaseRefProvider, FirebaseUrl) {
+function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvider) {
   $firebaseRefProvider.registerUrl({
     default: FirebaseUrl,
     messages: FirebaseUrl + 'messages'
   });
+  
+  $routeProvider
+    .when('/', {
+      template: '<flexchat-app auth-data="$resolve.authData"></flexchat-app>',
+      resolve: {
+        authData: ['$firebaseAuthService', ($Auth) => {
+          return $Auth.$requireAuth();
+        }]
+      }
+    })
+    .when('/login', {
+      template: '<login></login>'
+    })
 }
 
+function ApplicationRun($rootScope, $location) {
+  $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+    if (error === "AUTH_REQUIRED") {
+      $location.path("/login");
+    }
+  });  
+}
+
+/*
+ * Flexchat App
+ * --------------
+ * element: <flexchat-app></flexchat-app>
+ * dependencies: $firebaseArray, $firebaseAuthService
+ */
 function flexchatAppComponent() {
   return {
-    controller: ['messagesList', function (messagesList) {
+    bindings: { authData: '<' },
+    controller: function (messagesList) {
       this.messages = messagesList;
-    }],
+      console.log(this.authData);
+    },
     templateUrl: 'app.html'
   }
 }
 
+/*
+ * Flexchat
+ * --------------
+ * element: <flexchat></flexchat>
+ * dependencies: $firebaseArray
+ */
 function flexchatComponent() {
   return {
     bindings: { messages: '<' },
@@ -50,6 +89,12 @@ function flexchatComponent() {
   };
 }
 
+/*
+ * Flexchat Message
+ * --------------
+ * element: <flexchat-message></flexchat-message>
+ * properties: Message { text: string, uid: string }
+ */
 function MessageDirective() {
   return {
     restrict: 'E',
@@ -61,5 +106,33 @@ function MessageDirective() {
       elem[0].scrollIntoView();
     },
     templateUrl: 'message.html'
+  }
+}
+
+/*
+ * Login
+ * --------------
+ * element: <login></login>
+ * dependencies: $firebaseAuthService
+ */
+function LoginDirective() {
+  return {
+    restrict: 'E',
+    scope: {},
+    controllerAs: '$ctrl',
+    controller: ($firebaseAuthService, $location) => { 
+      console.log('ctrl');
+      this.login = () => {
+        console.log('login');
+        $firebaseAuthService.$authWithOAuthRedirect()
+          .then((authData) => {
+            $location.href = '/';
+          });
+      };
+    },
+    link: (scope, elem, attrs) => {
+      
+    },
+    templateUrl: 'login.html'
   }
 }

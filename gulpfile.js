@@ -35,7 +35,7 @@ gulp.task('sass:watch', () => {
 });
 
 gulp.task('transpile', ['templates'], () => {
-  return gulp.src(['src/_build.txt', 'src/app.js'])
+  return gulp.src(['src/_build.txt', 'src/templates.js', 'src/app.js'])
     .pipe(concat("app.js"))
     .pipe(babel())
     .pipe(gulp.dest("./app/dist"));  
@@ -44,9 +44,12 @@ gulp.task('transpile', ['templates'], () => {
 gulp.task('templates', function () {
   return gulp.src('./templates/**/*.html')
     .pipe(templateCache({
-      module: 'flexchat'
+      module: 'flexchat.templates',
+      standalone: true
     }))
     .pipe(gulp.dest('./src/'));
 });
+
+gulp.task('run', ['sass', 'transpile', 'watch', 'sass:watch', 'serve']);
 
 gulp.task("default", ['sass', 'transpile'],() => {});
