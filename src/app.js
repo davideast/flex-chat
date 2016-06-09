@@ -3,13 +3,21 @@
  * ----------
  * An angular app demonstrating Firebase & Flexbox.
  */
+var config = {
+  apiKey: "AIzaSyC5JSURo_SLXw0I1F0gKbWW0zcfoCz4bmM",
+  authDomain: "flexchat.firebaseapp.com",
+  databaseURL: "https://flexchat.firebaseio.com",
+  storageBucket: "project-8161952438615829383.appspot.com",
+};
+firebase.initializeApp(config);
+
 angular
   .module('flexchat', [
     'firebase',
     'ngRoute',
     'flexchat.templates'
   ])
-  .constant('FirebaseUrl', 'https://flexchat.firebaseio.com/')
+  .constant('FirebaseUrl', config.databaseURL)
   .component('flexchatApp', flexchatAppComponent())
   .component('flexchat', flexchatComponent())
   .factory('messagesList', MessagesList)
@@ -25,7 +33,7 @@ function MessagesList($firebaseArray, $firebaseRef) {
 function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvider) {
   $firebaseRefProvider.registerUrl({
     default: FirebaseUrl,
-    messages: FirebaseUrl + 'messages'
+    messages: FirebaseUrl + '/messages'
   });
   
   $routeProvider
@@ -33,7 +41,7 @@ function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvider) {
       template: '<flexchat-app auth-data="$resolve.authData"></flexchat-app>',
       resolve: {
         authData: ['$firebaseAuthService', ($Auth) => {
-          return $Auth.$requireAuth();
+          //return $Auth.$requireAuth();
         }]
       }
     })

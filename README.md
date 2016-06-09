@@ -1,3 +1,3 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/davideast/pen/JXBgwV.
+# flex-chat
 
- 
+An Angular + Firebase chat app.

@@ -34,6 +34,23 @@ gulp.task('sass:watch', () => {
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
 
+/*
+  <script src="/lib/firebase/firebase.js"></script>
+  <script src="/lib/angular/angular.js"></script>
+  <script src="/lib/angular-route/angular-route.js"></script>
+  <script src="/lib/angularfire/dist/angularfire.js"></script>
+*/
+
+gulp.task('copy_modules', () => {
+  gulp.src([
+    './node_modules/firebase/firebase.js',
+    './node_modules/angular/angular.js',
+    './node_modules/angular-route/angular-route.js',
+    './node_modules/angularfire/dist/angularfire.js'
+  ])
+  .pipe(gulp.dest('./app/lib/'));
+});
+
 gulp.task('transpile', ['templates'], () => {
   return gulp.src(['src/_build.txt', 'src/templates.js', 'src/app.js'])
     .pipe(concat("app.js"))
@@ -50,6 +67,6 @@ gulp.task('templates', function () {
     .pipe(gulp.dest('./src/'));
 });
 
-gulp.task('run', ['sass', 'transpile', 'watch', 'sass:watch', 'serve']);
+gulp.task('run', ['sass', 'transpile', 'copy_modules', 'watch', 'sass:watch', 'serve']);
 
-gulp.task("default", ['sass', 'transpile'],() => {});
+gulp.task("default", ['sass', 'transpile', 'copy_modules'],() => {});

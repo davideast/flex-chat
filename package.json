@@ -22,5 +22,11 @@
     "gulp-connect": "^4.0.0",
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^2.0.0-alpha"
+  },
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-route": "^1.5.6",
+    "angularfire": "^2.0.1",
+    "firebase": "^3.0.4"
   }
 }
