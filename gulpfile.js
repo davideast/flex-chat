@@ -1,9 +1,9 @@
 'use strict';
 
-const gulp = require("gulp");
-const sourcemaps = require("gulp-sourcemaps");
-const babel = require("gulp-babel");
-const concat = require("gulp-concat");
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
 const sass = require('gulp-sass');
 const connect = require('gulp-connect');
 const templateCache = require('gulp-angular-templatecache');
@@ -34,13 +34,6 @@ gulp.task('sass:watch', () => {
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
 
-/*
-  <script src="/lib/firebase/firebase.js"></script>
-  <script src="/lib/angular/angular.js"></script>
-  <script src="/lib/angular-route/angular-route.js"></script>
-  <script src="/lib/angularfire/dist/angularfire.js"></script>
-*/
-
 gulp.task('copy_modules', () => {
   gulp.src([
     './node_modules/firebase/firebase.js',
@@ -53,9 +46,9 @@ gulp.task('copy_modules', () => {
 
 gulp.task('transpile', ['templates'], () => {
   return gulp.src(['src/_build.txt', 'src/templates.js', 'src/app.js'])
-    .pipe(concat("app.js"))
+    .pipe(concat('app.js'))
     .pipe(babel())
-    .pipe(gulp.dest("./app/dist"));  
+    .pipe(gulp.dest('./app/dist'));  
 });
 
 gulp.task('templates', function () {
@@ -69,4 +62,4 @@ gulp.task('templates', function () {
 
 gulp.task('run', ['sass', 'transpile', 'copy_modules', 'watch', 'sass:watch', 'serve']);
 
-gulp.task("default", ['sass', 'transpile', 'copy_modules'],() => {});
+gulp.task('default', ['sass', 'transpile', 'copy_modules'],() => {});
