@@ -71,11 +71,13 @@ header {
   justify-content: flex-end;
   
   .chat-message {
-    color: #fff;
-    justify-content: flex-end;
-    background: $localMessage;
-  background: linear-gradient( 0deg, $localMessageLighter, $localMessageLight 60%, $localMessage );    
-  }
+        color: #fff;
+        justify-content: flex-end;
+        background: $localMessage;
+      background: -webkit-linear-gradient(bottom, $localMessageLighter, $localMessageLight 60%, $localMessage);
+      background: -o-linear-gradient(bottom, $localMessageLighter, $localMessageLight 60%, $localMessage);
+      background: linear-gradient(to top, $localMessageLighter, $localMessageLight 60%, $localMessage);    
+      }
 }
 
 .input-bar {
@@ -91,13 +93,21 @@ header {
     border: none;
   }
   
-  button {
+  button, .inputfile + label {
     border: none;
     background: $goodnessLight;
     width: 14%;
     color: white;
     outline: none;
     padding: 0 10px;
+  }
+  
+  .inputfile + label {
+    background: #53c0d8;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
   
   button:focus {
@@ -123,4 +133,26 @@ login, .login {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
     border-radius: 2px;
     background: #fafafa;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+	pointer-events: none;
 }

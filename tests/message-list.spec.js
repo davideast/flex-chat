@@ -5,11 +5,11 @@ describe('messagesList', function () {
   var messagesList;
   beforeEach(inject(function (_messagesList_) {
     messagesList = _messagesList_;
-    console.log(messagesList);
+    firebase.database().goOffline();
   }));
 
-  it('should do ...', function () {
-    expect(true).toBe(true);
+  it('should do ...', function (done) {
+    
   });
 
 });
