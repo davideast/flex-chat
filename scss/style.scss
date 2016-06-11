@@ -35,9 +35,16 @@ header {
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom, $headerBar, rgba(176, 176, 176, 0.9));
-  position: relative;
   background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;  
 } 
+
+.ion-camera {
+  font-size: 20px;
+}
 
 .chat-container {
   display: flex;
@@ -53,23 +60,41 @@ header {
   margin: 5px 0px;
 }
 
+.chat-section, flexchat-message {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin: 5px 0px;
+    flex-direction: column;
+}
+
 .chat-message {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   color: #3c3c3c;
 	background: $remoteMessage;
-  height: 100%;
   max-width: 82%;
   padding: 10px;
   border-radius: 12px;
   background: linear-gradient( 0deg, $remoteMessageLighter, $remoteMessageLight 60%, $remoteMessage );
   word-break: break-word;  
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.chat-message.image-message {
+  overflow: hidden;
+  align-items: initial;
 }
 
 .chat-section:nth-child(odd), flexchat-message:nth-child(odd) {
-  justify-content: flex-end;
-  
+  align-items: flex-end;
+
   .chat-message {
         color: #fff;
         justify-content: flex-end;
@@ -99,7 +124,7 @@ header {
     width: 14%;
     color: white;
     outline: none;
-    padding: 0 10px;
+    padding: 12px;
   }
   
   .inputfile + label {

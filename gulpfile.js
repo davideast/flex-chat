@@ -47,7 +47,7 @@ gulp.task('copy_modules', () => {
 gulp.task('transpile', ['templates'], () => {
   return gulp.src(['src/_build.txt', 'src/templates.js', 'src/app.js'])
     .pipe(concat('app.js'))
-    .pipe(babel())
+    .pipe(babel({ presets: ['es2015'] }))
     .pipe(gulp.dest('./app/dist'));  
 });
 

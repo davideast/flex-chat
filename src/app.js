@@ -41,12 +41,7 @@ function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvider) {
   
   $routeProvider
     .when('/', {
-      template: '<flexchat-app auth-data="$resolve.authData"></flexchat-app>',
-      resolve: {
-        authData: ['$firebaseAuthService', ($Auth) => {
-          //return $Auth.$requireAuth();
-        }]
-      }
+      template: '<flexchat-app auth-data="$resolve.authData"></flexchat-app>'
     })
     .when('/login', {
       template: '<login></login>'
@@ -85,31 +80,34 @@ function flexchatAppComponent() {
  */
 function flexchatComponent() {
   return {
-    bindings: { messages: '<', uploadFile: '<' },
-    controller: function ($firebaseStorage) {
-      const storageRef = firebase.storage().ref().child('test/thing.png');
-      const storage = $firebaseStorage(storageRef);
+    bindings: { messages: '<' },
+    controller: function ($firebaseStorage, $firebaseRef) {
+      const rootStorageRef = firebase.storage().ref();
+      const messageStorageRef = rootStorageRef.child('messages');
       
       this.addMessage = (event) => {
         if (event.keyCode && event.keyCode !== 13) { return; }
         const filePresent = !!this.fileUpload;
+        const messagesRef = $firebaseRef.messages;
+        const newMessageRef = messagesRef.push();
         
-        // Add a message and then upload the file
-        this.messages.$add({
-          text: this.messageText,
-          hasImage: filePresent
-        }).then(item => {
-          if(filePresent) {
-            storage.$put(`messages/${item.key}`); 
-          }
-        });
-        
-        this.messageText = '';
-      };
-      this.uploadImage = () => {       
-        const task = storage.$put(this.fileUpload);
-        task.$progress(snap => console.log(snap.bytesTransferred));
-        task.$complete(snap => console.log(snap));
+        if (filePresent) {
+          const storage = $firebaseStorage(messageStorageRef.child(newMessageRef.key));
+          const task = storage.$put(this.fileUpload);
+          task.$complete(snap => {
+            newMessageRef.set({
+              text: this.messageText,
+              hasImage: filePresent
+            });
+            this.messageText = '';
+          });
+        } else {
+          newMessageRef.set({
+            text: this.messageText,
+            hasImage: filePresent
+          });
+          this.messageText = '';
+        }
       };
       this.onChange = (fileList) => {
         this.fileUpload = fileList[0];
@@ -189,13 +187,17 @@ function FileUploadDirective() {
 function FirebaseStorageDirective($firebaseStorage) {
   return {
     restrict: 'A',
+    priority: 99, // it needs to run after the attributes are interpolated
     scope: {},
     link: function (scope, element, attrs) {
-      debugger;
-      const storageRef = firebase.storage().ref().child(attrs.gsUrl);
-      const storage = $firebaseStorage(storageRef);
-      storage.$getDownloadURL().then(url => {
-        element[0].src = url;
+      attrs.$observe('gsUrl', function (newVal, oldVal) {
+        if (newVal !== '') {
+          const storageRef = firebase.storage().ref().child(attrs.gsUrl);
+          const storage = $firebaseStorage(storageRef);
+          storage.$getDownloadURL().then(url => {
+            element[0].src = url;
+          });          
+        }
       });
     }
   }
