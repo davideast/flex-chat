@@ -16,11 +16,6 @@ export function flexchatComponent() {
         return !!file && !!file.type.match(/image.*/);
       };
 
-      function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-        return { width: srcWidth * ratio, height: srcHeight * ratio };
-      }
-
       this.addMessage = (event) => {
         if (event.keyCode && event.keyCode !== 13) { return; }
         const filePresent = this.isImage(this.fileUpload);

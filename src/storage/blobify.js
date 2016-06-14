@@ -1,4 +1,4 @@
-export function Blobify() {
+export function blobify() {
   return function dataURItoBlob(dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;
