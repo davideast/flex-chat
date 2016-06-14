@@ -8,7 +8,7 @@ const sass = require('gulp-sass');
 const connect = require('gulp-connect');
 const templateCache = require('gulp-angular-templatecache');
 
-gulp.task('serve', () => {
+gulp.task('serve', ['watch', 'html'], () => {
   connect.server({
     root: 'app',
     livereload: true
@@ -16,12 +16,12 @@ gulp.task('serve', () => {
 });
  
 gulp.task('html', () => {
-  gulp.src('./app/*.html')
+  gulp.src('./src/*.html')
     .pipe(connect.reload());
 });
  
 gulp.task('watch', () => {
-  gulp.watch(['./app/*.html'], ['html']);
+  gulp.watch(['./templates/*.html', './src/*.js', './scss/*.scss'], ['transpile', 'sass']);
 });
 
 gulp.task('sass', () => {

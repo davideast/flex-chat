@@ -1,7 +1,6 @@
 <div ng-if="$ctrl.message.text !== ''" class="chat-message text-message">
   <div>{{ $ctrl.message.text }}</div>
 </div>
-
 <div ng-if="$ctrl.message.hasImage" class="chat-message image-message">
   <img height="200px" width="200px" ng-if="$ctrl.message.hasImage" gs-url="messages/{{$ctrl.message.$id}}" />
 </div>

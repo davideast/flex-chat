@@ -21,6 +21,7 @@ angular
   .component('flexchatApp', flexchatAppComponent())
   .component('flexchat', flexchatComponent())
   .factory('messagesList', MessagesList)
+  .factory('blobify', Blobify)
   .factory('$firebaseStorage', FirebaseStorage)
   .directive('flexchatMessage', MessageDirective)
   .directive('login', LoginDirective)
@@ -31,6 +32,28 @@ angular
 
 function MessagesList($firebaseArray, $firebaseRef) {
   return $firebaseArray($firebaseRef.messages.orderByKey().limitToLast(35));
+}
+
+function Blobify() {
+  return function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+  }
 }
 
 function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvider) {
@@ -81,13 +104,23 @@ function flexchatAppComponent() {
 function flexchatComponent() {
   return {
     bindings: { messages: '<' },
-    controller: function ($firebaseStorage, $firebaseRef) {
+    controller: function ($firebaseStorage, $firebaseRef, blobify) {
       const rootStorageRef = firebase.storage().ref();
       const messageStorageRef = rootStorageRef.child('messages');
-      
+
+      this.messageText = '';
+      this.isImage = (file) => {
+        return !!file && !!file.type.match(/image.*/);
+      };
+
+      function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+        return { width: srcWidth * ratio, height: srcHeight * ratio };
+      }
+
       this.addMessage = (event) => {
         if (event.keyCode && event.keyCode !== 13) { return; }
-        const filePresent = !!this.fileUpload;
+        const filePresent = this.isImage(this.fileUpload);
         const messagesRef = $firebaseRef.messages;
         const newMessageRef = messagesRef.push();
         
@@ -99,8 +132,11 @@ function flexchatComponent() {
               text: this.messageText,
               hasImage: filePresent
             });
+            // clear out text and uploaded image
             this.messageText = '';
+            this.fileUpload = null;
           });
+          task.$error(err => console.error(err));
         } else {
           newMessageRef.set({
             text: this.messageText,
@@ -127,7 +163,7 @@ function MessageDirective() {
   return {
     restrict: 'E',
     scope: {},
-    bindToController: { message: '=message' },
+    bindToController: { message: '=' },
     controllerAs: '$ctrl',
     controller: () => { },
     link: (scope, elem, attrs) => {
