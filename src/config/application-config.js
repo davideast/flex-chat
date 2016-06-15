@@ -6,7 +6,7 @@ export function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvi
   
   $routeProvider
     .when('/', {
-      template: '<flexchat-app auth-data="$resolve.authData"></flexchat-app>'
+      template: '<app auth-data="$resolve.authData"></app>'
     })
     .when('/login', {
       template: '<login></login>'

@@ -12,7 +12,7 @@ export function MessageDirective() {
     controllerAs: '$ctrl',
     controller: () => { },
     link: (scope, elem, attrs) => {
-      elem[0].scrollIntoView();
+      //elem[0].scrollIntoView();
     },
     templateUrl: 'message.html'
   }

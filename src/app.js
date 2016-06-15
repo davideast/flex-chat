@@ -1,5 +1,5 @@
 import { ApplicationConfig, ApplicationRun, initializeFirebaseApp } from './config';
-import { MessagesList, MessageDirective, flexchatComponent } from './messages';
+import { MessagesList, MessageDirective, MessageBlobService, flexchatComponent } from './messages';
 import { FirebaseStorage, FirebaseStorageDirective, blobify } from './storage';
 import { LoginDirective } from './login';
 import { FileUploadDirective } from './common';
@@ -19,10 +19,10 @@ angular
     'flexchat.templates'
   ])
   .constant('FirebaseUrl', config.databaseURL)
-  .component('flexchatApp', appComponent())
+  .component('app', appComponent())
   .component('flexchat', flexchatComponent())
   .factory('messagesList', MessagesList)
-  .factory('blobify', blobify)
+  .service('messageBlob', MessageBlobService)
   .factory('$firebaseStorage', FirebaseStorage)
   .directive('flexchatMessage', MessageDirective)
   .directive('login', LoginDirective)
