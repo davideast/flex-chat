@@ -4,6 +4,7 @@
  * element: <flexchat></flexchat>
  * dependencies: $firebaseArray
  */
+
 export function flexchatComponent() {
   return {
     bindings: { messages: '<' },
@@ -11,7 +12,10 @@ export function flexchatComponent() {
       this.messageText = '';
       this.fileUpload = null;
       
-      this.messages.scrollToRecent();
+      this.messages.listenToLatest(latestMessage => {
+        const messageElement = document.getElementById(`flexchat-message-${latestMessage.$id}`);
+        messageElement.scrollIntoView();
+      });
 
       this.addMessage = (event) => {
         if (event.keyCode && event.keyCode !== 13) { return; }
