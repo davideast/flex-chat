@@ -8,8 +8,5 @@ export function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvi
     .when('/', {
       template: '<app auth-data="$resolve.authData"></app>'
     })
-    .when('/login', {
-      template: '<login></login>'
-    })
 }
 ApplicationConfig.$inject = ['$firebaseRefProvider', 'FirebaseUrl', '$routeProvider'];

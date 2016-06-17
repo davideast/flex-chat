@@ -12,8 +12,8 @@ export function flexchatComponent() {
       this.messageText = '';
       this.fileUpload = null;
       
-      this.messages.listenToLatest(latestMessage => {
-        const messageElement = document.getElementById(`flexchat-message-${latestMessage.$id}`);
+      this.messages.listenToLatest(latest => {
+        const messageElement = document.getElementById(`flexchat-message-${latest.$id}`);
         messageElement.scrollIntoView();
       });
 

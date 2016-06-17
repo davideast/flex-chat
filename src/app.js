@@ -1,3 +1,9 @@
+/*
+ * Flexchat
+ * ----------
+ * An angular app demonstrating Firebase & Flexbox.
+ */
+
 import { ApplicationConfig, ApplicationRun, initializeFirebaseApp } from './config';
 import { MessagesList, messageComponent, MessageBlobService, flexchatComponent } from './messages';
 import { FirebaseStorage, FirebaseStorageDirective, blobify } from './storage';
@@ -5,11 +11,6 @@ import { LoginDirective } from './login';
 import { FileUploadDirective } from './common';
 import { appComponent } from './app-component';
 
-/*
- * Flexchat
- * ----------
- * An angular app demonstrating Firebase & Flexbox.
- */
 const config = initializeFirebaseApp();
 
 angular
