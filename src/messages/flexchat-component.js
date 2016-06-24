@@ -19,6 +19,12 @@ export function flexchatComponent() {
       });
 
       this.addMessage = (event) => {
+
+        if (event.keyCode && event.keyCode == 13 && !this.authData) {
+          this.promptLogin();
+          return;
+        }
+
         if (event.keyCode && event.keyCode !== 13) { return; }
         
         messageBlob.addBlobMessage({
@@ -47,21 +53,18 @@ export function flexchatComponent() {
       };
 
       $firebaseAuthService.$onAuthStateChanged((firebaseUser) => {
-        debugger;
         this.authData = firebaseUser;
       });
 
       modalFactory({
         controller: function LoginCtrl($firebaseAuthService) {
           this.login = _ => {
-            console.log($firebaseAuthService);
             $firebaseAuthService.$signInWithRedirect('twitter').then(user => {
               console.log(user);
             });
           };
         },
         templateUrl: 'login.html',
-        scope: false
       }).then(modal => this.modal = modal);
 
     },
