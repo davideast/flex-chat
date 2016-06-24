@@ -15,12 +15,12 @@ export function ModalFactory($templateRequest, $compile, $document, $controller)
         $scope: options.scope,
         $element: compiledElement,
         show: function() {
-          compiledElement.removeClass('flx-closed slideOutDown');
-          compiledElement.addClass('flx-open animated slideInUp');
+          compiledElement.removeClass('flx-closed fadeOutDown');
+          compiledElement.addClass('flx-open animated fadeInUp');
         },
         hide: function() {
-          compiledElement.addClass('animated slideOutDown');
-          compiledElement.removeClass('flx-open slideInUp');
+          compiledElement.addClass('animated fadeOutDown');
+          compiledElement.removeClass('flx-open fadeInUp');
         }
       }
     });

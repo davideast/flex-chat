@@ -8,7 +8,7 @@
 export function flexchatComponent() {
   return {
     bindings: { messages: '<', authData: '<' },
-    controller: function (messageBlob, modalFactory) {
+    controller: function (messageBlob, modalFactory, $document) {
       var localScope = this;
       this.messageText = '';
       this.fileUpload = null;
@@ -35,8 +35,15 @@ export function flexchatComponent() {
       };
 
       this.promptLogin = _ => {
-        debugger;
         this.modal.show();
+        $document.bind('click', e =>  {
+          if (e.target.id === 'flx-login' || 
+              e.target.parentElement.id === 'flx-login' ||
+              e.target.id === 'btLogin') {
+            return;
+          }
+          this.modal.hide();
+        });        
       };
 
       modalFactory({

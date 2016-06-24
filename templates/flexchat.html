@@ -12,13 +12,13 @@
     <span class="ion-camera"></span>
   </file-upload>
 
-  <button 
+  <button id="btAddMessage"
     ng-if="$ctrl.authData"
     ng-click="$ctrl.addMessage($event)">
     Send
   </button>
 
-  <button 
+  <button id="btLogin"
     ng-if="!$ctrl.authData"
     ng-click="$ctrl.promptLogin($event)">
     Login
