@@ -8,7 +8,7 @@
 export function flexchatComponent() {
   return {
     bindings: { messages: '<', authData: '<' },
-    controller: function (messageBlob, modalFactory, $document) {
+    controller: function (messageBlob, modalFactory, $document, $firebaseAuthService) {
       var localScope = this;
       this.messageText = '';
       this.fileUpload = null;
@@ -46,10 +46,22 @@ export function flexchatComponent() {
         });        
       };
 
+      $firebaseAuthService.$onAuthStateChanged((firebaseUser) => {
+        debugger;
+        this.authData = firebaseUser;
+      });
+
       modalFactory({
-        controller: class LoginCtrl{},
+        controller: function LoginCtrl($firebaseAuthService) {
+          this.login = _ => {
+            console.log($firebaseAuthService);
+            $firebaseAuthService.$signInWithRedirect('twitter').then(user => {
+              console.log(user);
+            });
+          };
+        },
         templateUrl: 'login.html',
-        scope: {}
+        scope: false
       }).then(modal => this.modal = modal);
 
     },

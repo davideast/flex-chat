@@ -1,18 +1,19 @@
-export function ModalFactory($templateRequest, $compile, $document, $controller) {
+export function ModalFactory($templateRequest, $compile, $document, $controller, $rootScope) {
   return function modalFactory(options) {
     const body = angular.element($document[0].body);
     const template = $templateRequest(options.templateUrl);
     return template.then(content => {
-      const compiledElement = $compile(content)(options.scope);
+      const modalScope = $rootScope.$new();
+      const compiledElement = $compile(content)(modalScope);
       const inputs = {
-        $scope: options.scope
+        $scope: modalScope
       };
       const modalController = $controller(options.controller, inputs, false, '$ctrl');
       compiledElement.addClass('flx-closed');
       body.append(compiledElement);
       return {
         $ctrl: modalController,
-        $scope: options.scope,
+        $scope: modalScope,
         $element: compiledElement,
         show: function() {
           compiledElement.removeClass('flx-closed fadeOutDown');
