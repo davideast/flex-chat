@@ -1,4 +1,4 @@
-<div class="chat-container" scroll-glue-bottom>  
+<div class="chat-container">  
   <flexchat-message 
     class="chat-section animated fadeInUp" 
     ng-repeat="message in $ctrl.messages" message="message"
@@ -11,5 +11,17 @@
   <file-upload on-change="$ctrl.onChange">
     <span class="ion-camera"></span>
   </file-upload>
-  <button ng-click="$ctrl.addMessage($event)">Send</button>
+
+  <button 
+    ng-if="$ctrl.authData"
+    ng-click="$ctrl.addMessage($event)">
+    Send
+  </button>
+
+  <button 
+    ng-if="!$ctrl.authData"
+    ng-click="$ctrl.promptLogin($event)">
+    Login
+  </button>  
+
 </div>

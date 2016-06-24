@@ -8,6 +8,6 @@ export function messageComponent() {
   return {
     bindings: { message: '=' },
     controller: () => {},
-    templateUrl: 'message.html'
+    templateUrl: 'flexchat-message.html'
   }
 }

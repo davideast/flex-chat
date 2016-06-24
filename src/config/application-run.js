@@ -6,17 +6,5 @@ export function ApplicationRun($rootScope, $location, $route) {
       $location.path("/login");
     }
   });
-  
-  // // HACK:
-  // $location.path = function (path, reload) {
-  //   if (reload === false) {
-  //     const lastRoute = $route.current;
-  //     const un = $rootScope.$on('$locationChangeSuccess', function () {
-  //       $route.current = lastRoute;
-  //       un();
-  //     });
-  //   }
-  //   return original.apply($location, [path]);
-  // };
 }
 ApplicationRun.$inject = ['$rootScope', '$location', '$route'];

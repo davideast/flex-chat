@@ -7,11 +7,12 @@
 
 export function flexchatComponent() {
   return {
-    bindings: { messages: '<' },
-    controller: function (messageBlob) {
+    bindings: { messages: '<', authData: '<' },
+    controller: function (messageBlob, modalFactory) {
+      var localScope = this;
       this.messageText = '';
       this.fileUpload = null;
-      
+
       this.messages.listenToLatest(latest => {
         const messageElement = document.getElementById(`flexchat-message-${latest.$id}`);
         messageElement.scrollIntoView();
@@ -31,8 +32,21 @@ export function flexchatComponent() {
 
       this.onChange = (fileList) => {
         this.fileUpload = fileList[0];
-      };      
+      };
+
+      this.promptLogin = _ => {
+        debugger;
+        this.modal.show();
+      };
+
+      modalFactory({
+        controller: class LoginCtrl{},
+        templateUrl: 'login.html',
+        scope: {}
+      }).then(modal => this.modal = modal);
+
     },
-    templateUrl: 'chat.html'
+
+    templateUrl: 'flexchat.html'
   };
 }

@@ -181,3 +181,11 @@ login, .login {
 .inputfile + label * {
 	pointer-events: none;
 }
+
+.flx-closed {
+  display: none;
+}
+
+.flx-open {
+  display: block;
+}

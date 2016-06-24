@@ -4,3 +4,4 @@ app/dist
 app/lib
 src/templates.js
 coverage
+*.log

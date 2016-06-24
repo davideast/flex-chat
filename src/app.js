@@ -6,9 +6,9 @@
 
 import { ApplicationConfig, ApplicationRun, initializeFirebaseApp } from './config';
 import { MessagesList, messageComponent, MessageBlobService, flexchatComponent } from './messages';
-import { FirebaseStorage, FirebaseStorageDirective, blobify } from './storage';
+import { FirebaseStorage, FirebaseStorageDirective } from './storage';
 import { LoginDirective } from './login';
-import { FileUploadDirective } from './common';
+import { FileUploadDirective, ModalFactory } from './common';
 import { appComponent } from './app-component';
 
 const config = initializeFirebaseApp();
@@ -24,6 +24,7 @@ angular
   .component('flexchat', flexchatComponent())
   .component('flexchatMessage', messageComponent())
   .factory('messagesList', MessagesList)
+  .factory('modalFactory', ModalFactory)
   .service('messageBlob', MessageBlobService)
   .factory('$firebaseStorage', FirebaseStorage)
   .directive('login', LoginDirective)
