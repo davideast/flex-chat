@@ -8,6 +8,7 @@ export function ApplicationRun($rootScope, $location, $route) {
   });
 
 
+  // Hide app shell header
   const headerShell = document.getElementById('flex-header-shell');
   const $headerShell = angular.element(headerShell);
   $headerShell.remove();

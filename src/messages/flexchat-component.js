@@ -7,9 +7,9 @@
 
 export function flexchatComponent() {
   return {
-    bindings: { messages: '<', authData: '<' },
+    bindings: { messages: '<', user: '<' },
+    require: { parent: '^app' },
     controller: function (messageBlob, modalFactory, $document, $firebaseAuthService) {
-      var localScope = this;
       this.messageText = '';
       this.fileUpload = null;
 
@@ -20,7 +20,7 @@ export function flexchatComponent() {
 
       this.addMessage = (event) => {
 
-        if (event.keyCode && event.keyCode == 13 && !this.authData) {
+        if (event.keyCode && event.keyCode == 13 && !this.user) {
           this.promptLogin();
           return;
         }
@@ -51,10 +51,6 @@ export function flexchatComponent() {
           this.modal.hide();
         });        
       };
-
-      $firebaseAuthService.$onAuthStateChanged((firebaseUser) => {
-        this.authData = firebaseUser;
-      });
 
       modalFactory({
         controller: function LoginCtrl($firebaseAuthService) {

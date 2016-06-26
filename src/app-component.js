@@ -5,10 +5,8 @@
  */
 export function appComponent() {
   return {
-    bindings: { authData: '<' },
-    controller: function (messagesList) {
-      this.messages = messagesList;
-    },
+    bindings: { user: '<', messages: '<' },
+    controller: function () {},
     templateUrl: 'app.html'
   }
 }

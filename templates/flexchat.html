@@ -13,13 +13,13 @@
   </file-upload>
 
   <button id="btAddMessage"
-    ng-if="$ctrl.authData"
+    ng-if="$ctrl.user"
     ng-click="$ctrl.addMessage($event)">
     Send
   </button>
 
   <button id="btLogin"
-    ng-if="!$ctrl.authData"
+    ng-if="!$ctrl.user"
     ng-click="$ctrl.promptLogin($event)">
     Login
   </button>  

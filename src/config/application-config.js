@@ -6,7 +6,19 @@ export function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvi
   
   $routeProvider
     .when('/', {
-      template: '<app auth-data="$resolve.authData"></app>'
-    })
+      template: `
+        <app 
+          user="$resolve.user"
+          messages="$resolve.messages">
+        </app>`,
+      resolve: {
+        user: function($firebaseAuthService) {
+          return $firebaseAuthService.$waitForSignIn();
+        },
+        messages: function(messagesList) {
+          return messagesList.$loaded();
+        }
+      }
+    });
 }
 ApplicationConfig.$inject = ['$firebaseRefProvider', 'FirebaseUrl', '$routeProvider'];

@@ -9,6 +9,7 @@ import { MessagesList, messageComponent, MessageBlobService, flexchatComponent }
 import { FirebaseStorage, FirebaseStorageDirective } from './storage';
 import { LoginDirective } from './login';
 import { FileUploadDirective, ModalFactory, body } from './common';
+import { twitterUser } from './auth';
 import { appComponent } from './app-component';
 
 const config = initializeFirebaseApp();
@@ -26,6 +27,7 @@ angular
   .factory('messagesList', MessagesList)
   .factory('modalFactory', ModalFactory)
   .factory('body', body)
+  .factory('twitterUser', twitterUser)
   .service('messageBlob', MessageBlobService)
   .factory('$firebaseStorage', FirebaseStorage)
   .directive('login', LoginDirective)
