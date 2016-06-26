@@ -6,5 +6,11 @@ export function ApplicationRun($rootScope, $location, $route) {
       $location.path("/login");
     }
   });
+
+
+  const headerShell = document.getElementById('flex-header-shell');
+  const $headerShell = angular.element(headerShell);
+  $headerShell.remove();
+
 }
 ApplicationRun.$inject = ['$rootScope', '$location', '$route'];

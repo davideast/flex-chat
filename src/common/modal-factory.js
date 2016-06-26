@@ -1,6 +1,5 @@
-export function ModalFactory($templateRequest, $compile, $document, $controller, $rootScope) {
+export function ModalFactory($templateRequest, $compile, body, $controller, $rootScope) {
   return function modalFactory(options) {
-    const body = angular.element($document[0].body);
     const template = $templateRequest(options.templateUrl);
     return template.then(content => {
       const modalScope = $rootScope.$new();
