@@ -5,7 +5,7 @@
  */
 export function appComponent() {
   return {
-    bindings: { user: '<', messages: '<' },
+    bindings: { user: '<', messages: '<', redirectResult: '<' },
     controller: function () {},
     templateUrl: 'app.html'
   }

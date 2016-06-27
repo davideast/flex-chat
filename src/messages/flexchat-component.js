@@ -7,61 +7,62 @@
 
 export function flexchatComponent() {
   return {
-    bindings: { messages: '<', user: '<' },
+    bindings: { messages: '<', user: '<', redirectResult: '<' },
     require: { parent: '^app' },
-    controller: function (messageBlob, modalFactory, $document, $firebaseAuthService) {
-      this.messageText = '';
-      this.fileUpload = null;
+    controller: function (messageBlob, modalFactory, $document, $firebaseAuthService, $timeout) {
+      const ctrl = this;
+      ctrl.messageText = '';
+      ctrl.fileUpload = null;
 
-      this.messages.listenToLatest(latest => {
+      if (ctrl.redirectResult && ctrl.redirectResult.user) {
+        ctrl.user = ctrl.redirectResult.user;
+      }
+
+      ctrl.messages.listenToLatest(latest => {
         const messageElement = document.getElementById(`flexchat-message-${latest.$id}`);
         messageElement.scrollIntoView();
       });
 
-      this.addMessage = (event) => {
+      ctrl.addMessage = (event) => {
 
-        if (event.keyCode && event.keyCode == 13 && !this.user) {
-          this.promptLogin();
+        if (event.keyCode && event.keyCode == 13 && !ctrl.user) {
+          ctrl.promptLogin();
           return;
         }
 
         if (event.keyCode && event.keyCode !== 13) { return; }
         
         messageBlob.addBlobMessage({
-          text: this.messageText,
-          file: this.fileUpload
+          text: ctrl.messageText,
+          file: ctrl.fileUpload
         });
 
-        this.messageText = '';
-        this.fileUpload = null;
+        ctrl.messageText = '';
+        ctrl.fileUpload = null;
       };
 
-      this.onChange = (fileList) => {
-        this.fileUpload = fileList[0];
+      ctrl.onChange = (fileList) => {
+        ctrl.fileUpload = fileList[0];
       };
 
-      this.promptLogin = _ => {
-        this.modal.show();
+      ctrl.promptLogin = _ => {
+        ctrl.modal.show();
         $document.bind('click', e =>  {
           if (e.target.id === 'flx-login' || 
               e.target.parentElement.id === 'flx-login' ||
               e.target.id === 'btLogin') {
             return;
           }
-          this.modal.hide();
+          ctrl.modal.hide();
         });        
       };
 
       modalFactory({
         controller: function LoginCtrl($firebaseAuthService) {
-          this.login = _ => {
-            $firebaseAuthService.$signInWithRedirect('twitter').then(user => {
-              console.log(user);
-            });
-          };
+          this.login = _ => $firebaseAuthService.$signInWithRedirect('twitter');
         },
         templateUrl: 'login.html',
-      }).then(modal => this.modal = modal);
+      }).then(modal => ctrl.modal = modal);
 
     },
 

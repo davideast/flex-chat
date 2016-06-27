@@ -9,7 +9,8 @@ export function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvi
       template: `
         <app 
           user="$resolve.user"
-          messages="$resolve.messages">
+          messages="$resolve.messages"
+          redirect-result="$resolve.redirectResult">
         </app>`,
       resolve: {
         user: function($firebaseAuthService) {
@@ -17,6 +18,9 @@ export function ApplicationConfig($firebaseRefProvider, FirebaseUrl, $routeProvi
         },
         messages: function(messagesList) {
           return messagesList.$loaded();
+        },
+        redirectResult: function() {
+          return firebase.auth().getRedirectResult();       
         }
       }
     });
