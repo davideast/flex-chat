@@ -8,19 +8,20 @@ export function ModalFactory($templateRequest, $compile, body, $controller, $roo
         $scope: modalScope
       };
       const modalController = $controller(options.controller, inputs, false, '$ctrl');
-      compiledElement.addClass('flx-closed');
+      compiledElement.css('display', 'none');
       body.append(compiledElement);
       return {
         $ctrl: modalController,
         $scope: modalScope,
         $element: compiledElement,
         show: function() {
-          compiledElement.removeClass('flx-closed fadeOutDown');
-          compiledElement.addClass('flx-open animated fadeInUp');
+          compiledElement.css('display', 'flex');
+          compiledElement.removeClass('fadeOutDown');
+          compiledElement.addClass('animated fadeInUp');
         },
         hide: function() {
           compiledElement.addClass('animated fadeOutDown');
-          compiledElement.removeClass('flx-open fadeInUp');
+          compiledElement.removeClass('fadeInUp');         
         }
       }
     });

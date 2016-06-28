@@ -187,11 +187,21 @@ login, .login {
 }
 
 .flx-open {
-  display: block;
+  display: flex;
 }
 
 .flx-login {
-  position: fixed;
-  left: 45%;
-  top: 45%;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fafafa;
+    border-radius: 6px;
+    box-shadow: 0px 4px 10px #ccc;
+    background-color: white;
 }
