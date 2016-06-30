@@ -3,7 +3,7 @@
   <p align="center">A non-trivial, next generation Firebase web app.</p>
 </p>
 
-<div class="container" style="display: flex; justify-content: center;">
+<div align="center">
   <img src="https://raw.githubusercontent.com/davideast/flex-chat/master/flexchat-demo.png"
     height="500px" width="282px" />
 </div>
