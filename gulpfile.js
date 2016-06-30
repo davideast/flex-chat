@@ -8,6 +8,7 @@ const sass = require('gulp-sass');
 const connect = require('gulp-connect');
 const templateCache = require('gulp-angular-templatecache');
 const webpack = require('gulp-webpack');
+const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('serve', ['watch', 'html'], () => {
   connect.server({
@@ -28,6 +29,10 @@ gulp.task('watch', () => {
 gulp.task('sass', () => {
   return gulp.src('./scss/**/*.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer({
+			browsers: ['last 10 versions'],
+			cascade: false
+		}))
     .pipe(gulp.dest('./app/css'));
 });
  

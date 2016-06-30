@@ -72,7 +72,6 @@ header {
 .chat-message-wrapper {
   min-width: 10%;
   display: flex;
-  // flex-direction: column;
 }
 
 .chat-message {
@@ -86,6 +85,7 @@ header {
   border-radius: 12px;
   background: linear-gradient( 0deg, $remoteMessageLighter, $remoteMessageLight 60%, $remoteMessage );
   word-break: break-word;  
+  order: 1;
 
   img {
     width: 200px;
@@ -110,8 +110,13 @@ header {
     background: $localMessage;
     background: -webkit-linear-gradient(bottom, $localMessageLighter, $localMessageLight 60%, $localMessage);
     background: -o-linear-gradient(bottom, $localMessageLighter, $localMessageLight 60%, $localMessage);
-    background: linear-gradient(to top, $localMessageLighter, $localMessageLight 60%, $localMessage);    
+    background: linear-gradient(to top, $localMessageLighter, $localMessageLight 60%, $localMessage);
+    order: -1;    
   }
+}
+
+.bt-large {
+  width: 100px !important;
 }
 
 .input-bar {
@@ -125,12 +130,13 @@ header {
     height: 50px;
     outline: none;
     border: none;
+    border-radius: 0;
   }
   
   button, .inputfile + label {
     border: none;
     background: $goodnessLight;
-    width: 14%;
+    width: 50px;
     color: white;
     outline: none;
     padding: 12px;
@@ -138,7 +144,7 @@ header {
   
   .inputfile + label {
     background: #53c0d8;
-    width: 100%;
+    width: 50px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -222,6 +228,7 @@ login, .login {
   right: 10px;
   display: flex;
   align-items: center;  
+  height: 100%;
 
   .flx-displayName {
   	padding: 10px;

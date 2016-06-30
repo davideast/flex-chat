@@ -25,7 +25,7 @@ export class MessageBlobService {
           hasImage: filePresent,
           uid: message.uid,
           displayName: message.displayName,
-          photoURL: message.photoURL
+          photoURL: message.photoURL,
         });
       });
       task.$error(err => console.error(err));

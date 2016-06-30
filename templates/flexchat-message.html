@@ -1,14 +1,14 @@
 <div class="chat-message-wrapper">
   
+  <div class="flx-message-profile">
+    <img class="flx-avatar" ng-src="{{ $ctrl.message.photoURL }}" />
+  </div>
+
   <div 
     id="text-message-{{ ::$ctrl.message.$id }}" 
     ng-if="::($ctrl.message.text !== '')"
     class="chat-message text-message">
     <div>{{ ::$ctrl.message.text }}</div>
-  </div>
-
-  <div class="flx-message-profile">
-    <img class="flx-avatar" ng-src="{{ $ctrl.message.photoURL }}" />
   </div>
 
 </div>

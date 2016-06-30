@@ -12,7 +12,7 @@ function FlexchatComponentCtrl(messageBlob, modalFactory, $document, $firebaseAu
   ctrl.twitterUser = twitterUser();
 
   if (ctrl.redirectResult && ctrl.redirectResult.user) {
-    ctrl.user = ctrl.redirectResult.user;
+    ctrl.user = ctrl.redirectResult.user;    
   }
 
   // Listen for the recently added message and scroll it into view
