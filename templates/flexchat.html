@@ -1,7 +1,9 @@
 <div class="chat-container">  
   <flexchat-message 
-    class="chat-section animated fadeInUp" 
-    ng-repeat="message in $ctrl.messages" message="message"
+    class="chat-section animated fadeInUp"
+    message="message"
+    ng-repeat="message in $ctrl.messages" 
+    ng-class="::($ctrl.messageSenderClass(message))" 
     id="flexchat-message-{{ message.$id }}">
   </flexchat-message>
 </div>

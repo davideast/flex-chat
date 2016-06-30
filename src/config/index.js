@@ -1,3 +1,3 @@
-export { ApplicationConfig } from './application-config';
-export { ApplicationRun } from './application-run';
-export { initializeFirebaseApp } from './firebase-config';
+export * from './application-config';
+export * from './application-run';
+export * from './firebase-config';

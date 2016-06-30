@@ -1,12 +1,20 @@
-<div 
-  id="text-message-{{ $ctrl.message.$id }}" 
-  ng-if="$ctrl.message.text !== ''"
-   class="chat-message text-message">
-  <div>{{ $ctrl.message.text }}</div>
+<div class="chat-message-wrapper">
+  
+  <div 
+    id="text-message-{{ ::$ctrl.message.$id }}" 
+    ng-if="::($ctrl.message.text !== '')"
+    class="chat-message text-message">
+    <div>{{ ::$ctrl.message.text }}</div>
+  </div>
+
+  <div class="flx-message-profile">
+    <img class="flx-avatar" ng-src="{{ $ctrl.message.photoURL }}" />
+  </div>
+
 </div>
 <div 
-  id="image-message-{{ $ctrl.message.$id }}" 
-  ng-if="$ctrl.message.hasImage" 
+  id="image-message-{{ ::$ctrl.message.$id }}" 
+  ng-if="::$ctrl.message.hasImage" 
   class="chat-message image-message">
-  <img height="200px" width="200px" ng-if="$ctrl.message.hasImage" gs-url="messages/{{$ctrl.message.$id}}" />
+  <img height="200px" width="200px" ng-if="::$ctrl.message.hasImage" gs-url="messages/{{$ctrl.message.$id}}" />
 </div>

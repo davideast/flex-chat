@@ -22,14 +22,20 @@ export class MessageBlobService {
       task.$complete(snap => {
         newMessageRef.set({
           text: message.text,
-          hasImage: filePresent
+          hasImage: filePresent,
+          uid: message.uid,
+          displayName: message.displayName,
+          photoURL: message.photoURL
         });
       });
       task.$error(err => console.error(err));
     } else {
       newMessageRef.set({
         text: message.text,
-        hasImage: filePresent
+        hasImage: filePresent,
+        uid: message.uid,
+        displayName: message.displayName,
+        photoURL: message.photoURL
       });
     }
   }

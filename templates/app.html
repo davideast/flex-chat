@@ -1,9 +1,22 @@
 <header id="flex-header-ng">
   <h3>flex-chat</h3>
+  
+  <div ng-if="$ctrl.user" class="flx-profile">
+    <span class="flx-displayName">{{ ::$ctrl.twitterUser.displayName }}</span>
+    <img class="flx-photoURL" ng-src="{{ ::$ctrl.twitterUser.photoURL }}" />
+  </div>
+
+  <div ng-if="!$ctrl.user" class="flx-profile">
+    <button class="flx-profile-login" ng-click="$ctrl.login()">
+      <span class="ion-social-twitter"></span>
+      Login 
+    </button>
+  </div>
+
 </header>
 
 <flexchat 
-  messages="$ctrl.messages" 
-  user="$ctrl.user"
-  redirect-result="$ctrl.redirectResult">
+  messages="::$ctrl.messages" 
+  user="::$ctrl.user"
+  redirect-result="::$ctrl.redirectResult">
 </flexchat>

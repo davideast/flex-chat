@@ -9,7 +9,7 @@ export function twitterUser() {
       // check for info
       if (userInfo) {
         return {
-          photoURL: userInfo.photoUrl,
+          photoURL: userInfo.photoURL,
           displayName: userInfo.displayName    
         }
       }
