@@ -1,5 +1,16 @@
-export function twitterUser(currentUser) {
+export function twitterUser(currentUser, $firebaseRef) {
   const PROVIDER_ID = 'twitter.com';
+
+  function save() {
+    if (!currentUser) {
+      throw new Error('twitterUser().save(): No user currently exists.');
+    }
+    const userInfo = firebase.auth().currentUser.providerData[0];
+    if (userInfo) {
+      $firebaseRef.child('users').child(currentUser.uid).update(userInfo);
+    }
+  }
+
   return function getTwitterUser() {    
     // check for user
     if (currentUser) {
@@ -21,4 +32,4 @@ export function twitterUser(currentUser) {
     return null;
   }
 }
-twitterUser.$inject = ['currentUser'];
+twitterUser.$inject = ['currentUser', '$firebaseRef'];

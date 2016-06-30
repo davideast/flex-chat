@@ -1,4 +1,11 @@
 {
-  ".read": true,
-  ".write": true
+  "rules": {
+    "messages": {
+      ".read": true,
+      "$message_id": {
+        ".read": true,
+        ".write": "auth.uid != newData.child('uid').val()"
+      }
+    }
+  }
 }
