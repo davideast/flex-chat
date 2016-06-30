@@ -41,3 +41,4 @@ export class MessageBlobService {
   }
 
 }
+MessageBlobService.$inject = ['$firebaseStorage', '$firebaseRef'];

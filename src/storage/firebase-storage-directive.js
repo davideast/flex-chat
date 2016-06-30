@@ -1,4 +1,4 @@
-export function FirebaseStorageDirective($firebaseStorage) {
+export function FirebaseStorageDirective($firebaseStorage, firebase) {
   return {
     restrict: 'A',
     priority: 99, // run after the attributes are interpolated
@@ -18,4 +18,4 @@ export function FirebaseStorageDirective($firebaseStorage) {
     }
   }
 }
-FirebaseStorageDirective.$inject = ['$firebaseStorage'];
+FirebaseStorageDirective.$inject = ['$firebaseStorage', 'firebase'];

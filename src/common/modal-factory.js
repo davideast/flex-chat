@@ -27,3 +27,4 @@ export function ModalFactory($templateRequest, $compile, body, $controller, $roo
     });
   }
 }
+ModalFactory.$inject = ['$templateRequest', '$compile', 'body', '$controller', '$rootScope'];

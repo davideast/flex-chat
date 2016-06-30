@@ -3,7 +3,7 @@
  * --------------
  */
 
-export function FirebaseStorage($log, $firebaseUtils, $q) {
+export function FirebaseStorage() {
 
   return function FirebaseStorage(storageRef) {
     _assertStorageRef(storageRef);
@@ -18,7 +18,6 @@ export function FirebaseStorage($log, $firebaseUtils, $q) {
   }
 
 }
-FirebaseStorage.$inject = ['$log', '$firebaseUtils', '$q'];
 
 export function unwrapStorageSnapshot(storageSnapshot) {
   return {

@@ -21,3 +21,4 @@ export function MessagesList($firebaseArray, $firebaseRef, $timeout) {
   
   return new MessageList($firebaseRef.messages.orderByKey().limitToLast(35));
 }
+MessagesList.$inject = ['$firebaseArray', '$firebaseRef', '$timeout'];

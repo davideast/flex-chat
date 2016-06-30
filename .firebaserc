@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "project-8161952438615829383"
+    "default": "project-8161952438615829383",
+    "staging": "flexchat-staging"
   }
 }
