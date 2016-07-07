@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>flex-chat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
   <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -36,6 +37,24 @@
   <script src="lib/angularfire.js"></script>
   <script src="dist/templates.js"></script>
   <script src="dist/bundle.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      firebase.auth().onAuthStateChanged(function(firebaseUser) {
+        if (firebaseUser !== null) {
+          navigator.serviceWorker.register('sw.js').then(function(reg) {
+            reg.pushManager.subscribe({
+              userVisibleOnly: true
+            }).then(function(sub) {
+              console.log('endpoint:', sub.endpoint);
+              firebase.database().ref().child('tokens').child(firebaseUser.uid).set(sub.endpoint);
+            });
+          }).catch(function(error) {
+            console.log(':^(', error);
+          });
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

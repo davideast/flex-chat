@@ -1,0 +1,10 @@
+{
+  "name": "flex-chat",
+  "short_name": "flex-chat",
+  "theme_color": "#b3b3b3",
+  "background_color": "#f0f0f0",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "gcm_sender_id": "626079492884"
+}

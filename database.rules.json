@@ -9,6 +9,13 @@
           ".validate": "newData.val().length > 0"
         }
       }
+    },
+    "tokens": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid",
+        ".validate": "!data.exists()"
+      }
     }
   }
 }
