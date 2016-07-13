@@ -24,6 +24,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^4.0.0",
+    "gulp-cssnano": "^2.1.2",
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "jasmine": "^2.4.1",

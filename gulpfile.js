@@ -33,6 +33,7 @@ gulp.task('sass', () => {
 			browsers: ['last 10 versions'],
 			cascade: false
 		}))
+    .pipe(cssnano())
     .pipe(gulp.dest('./app/css'));
 });
  
