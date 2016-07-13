@@ -13,7 +13,10 @@ export function ApplicationRun($rootScope, $location, $route) {
   const $headerShell = angular.element(headerShell);
   const inputBarShell = document.getElementById('flx-input-bar-shell');
   const $inputBarShell = angular.element(inputBarShell);
+  const chatContainerShell = document.getElementById('flex-container-shell');
+  const $chatContainerShell = angular.element(chatContainerShell);
   $headerShell.remove();
   $inputBarShell.remove();
+  $chatContainerShell.remove();
 }
 ApplicationRun.$inject = ['$rootScope', '$location', '$route'];

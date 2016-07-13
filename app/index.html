@@ -27,19 +27,66 @@
     <h3>flex-chat</h3>
   </header>  
 
-  <div id="flx-input-bar-shell" class="input-bar">
-    <input type="text" />
-    <input type="file" name="file" id="firebase-storage-file-pre" class="inputfile" />
-    <label for="firebase-storage-file-pre">C</label>
+  <br><br><br>
 
-    <button 
-      id="btAddMessage-pre"
-      class="bt-large">
-      Send
-    </button>
+  <div id="flex-container-shell" class="chat-container">  
+    <div class="chat-message-wrapper" style="padding-bottom: 10px;">
+      
+      <div class="flx-message-profile">
+        <img class="flx-avatar" />
+      </div>
 
-  </div>
+      <div class="chat-message text-message">
+        <div>Hey! Did you know we're loading your app?</div>
+      </div>
 
+    </div>
+
+    <div class="chat-message-wrapper">
+      
+      <div class="flx-message-profile">
+        <img class="flx-avatar" />
+      </div>
+
+      <div class="chat-message text-message">
+        <div>Just sit tight, it shouldn't be much longer!</div>
+      </div>        
+
+    </div>
+
+    <noscript>
+      <div class="chat-message-wrapper animated fadeInUp" style="padding-top: 10px;">
+        
+        <div class="flx-message-profile">
+          <img class="flx-avatar" />
+        </div>
+
+        <div class="chat-message text-message">
+          <div>
+            Hmm, it seems you have JavaScript disabled. We kinda need that for the app to work. Kindly enable JavaScript or send us an email at ...
+          </div>
+        </div>        
+
+      </div>
+    </noscript>
+        
+  </div> 
+
+    <div id="flx-input-bar-shell" class="input-bar">
+      <input type="text" />
+      <input type="file" name="file" id="firebase-storage-file-pre" class="inputfile" />
+      <label for="firebase-storage-file-pre">
+        <span class="ion-camera"></span>
+      </label>
+
+      <button 
+        id="btAddMessage-pre"
+        class="bt-large">
+        Send
+      </button>
+
+    </div>
+    
   <div id="flx-app" ng-app="flexchat">
     <ng-view></ng-view>
   </div>
